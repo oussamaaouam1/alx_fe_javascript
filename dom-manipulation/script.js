@@ -21,5 +21,26 @@ document.addEventListener('DOMContentLoaded',()=>{
   quoteDisplay.appendChild(quoteTextElement);
   quoteDisplay.appendChild(quoteCategoryElement);
   }
+  //creat a function to add quotes by the user======
+  const createAddQuoteForm = ()=>{
+    const newQuoteText = document.getElementById('newQuoteText').value;
+    const newQuoteCategory = document.getElementById('newQuoteCategory').value;
+    if (newQuoteText && newQuoteCategory) {
+      //if the input is true===
+      //add the txt and category vaalues to the quotes array =====
+      quotes.push({text:newQuoteText , category:newQuoteCategory});
+      if (newQuoteCategory!==''&&newQuoteText!=='') {
+        alert('quotes add successfully');
+      }else{
+        alert('please enter a valid text and category')
+      }
+      document.getElementById('newQuoteText').value = '';
+      document.getElementById('newQuoteCategory').value = '';
+  
+
+      
+    }
+  }
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+  document.getElementById('addQuoteButton').addEventListener('click',createAddQuoteForm);
 });
