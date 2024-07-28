@@ -68,18 +68,45 @@ document.addEventListener('DOMContentLoaded',()=>{
     fileReader.readAsText(event.target.files[0]);
   };
 
-//emplement filter by categories function
+  //emplement filter by categories function
 
-const filterQuotes = ()=>{
-  const populateCategories = document.getElementById('categoryFilter');
-  const selectedCategory = [...new Set(quotes.map(quote => quote.category))];
-  selectedCategory.forEach(category => {
-    const option = document.createElement('option');
-    option.value=category;
-    option.textContent= category;
-    populateCategories.appendChild(option);
-  });
-}
+  const filterQuotes = ()=>{
+    const populateCategories = document.getElementById('categoryFilter');
+    const selectedCategory = [...new Set(quotes.map(quote => quote.category))];
+    selectedCategory.forEach(category => {
+      const option = document.createElement('option');
+      option.value=category;
+      option.textContent= category;
+      populateCategories.appendChild(option);
+    });
+  }
+  //fetch the data from the server and return an array contain text and category
+  const fetchQuotesFromServer = async () => {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const serverQuotes = await response.json();
+        return serverQuotes.map(quote => ({ text: quote.body, category: 'General' }));
+    } catch (error) {
+        console.error('Failed to fetch quotes from the server:', error);
+        return [];
+    }
+  };
+  //sync the local quotes with server quotes
+  const syncQuotes = async () => {
+    const serverQuotes = await fetchQuotesFromServer();
+    const newQuotes = [...new Set([...serverQuotes, ...quotes])];
+    quotes.length = 0;
+    quotes.push(...newQuotes);
+    saveQuotes();
+    alert('Quotes synced successfully!');
+    showRandomQuote();
+  };
+  // Function to periodically sync quotes
+  const startPeriodicSync = (interval = 60000) => {
+    setInterval(async () => {
+        await syncQuotes();
+    }, interval);
+  };
 
 
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
