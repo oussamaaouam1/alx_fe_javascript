@@ -66,11 +66,26 @@ document.addEventListener('DOMContentLoaded',()=>{
       alert('Quotes imported successfully!');
     };
     fileReader.readAsText(event.target.files[0]);
-  }
+  };
+
+//emplement filter by categories function
+
+const filterQuotes = ()=>{
+  const chooseCategory = document.getElementById('categoryFilter');
+  const categories = [...new Set(quotes.map(quote => quote.category))];
+  categories.forEach(category => {
+    const option = document.createElement('option');
+    option.value=category;
+    option.textContent= category;
+    chooseCategory.appendChild(option);
+  });
+}
+
 
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
   document.getElementById('addQuoteButton').addEventListener('click',createAddQuoteForm);
   document.getElementById('addQuoteButton').addEventListener('click',saveQuotes);
   document.getElementById('exportQuotes').addEventListener('click',exportQuotes);
   document.getElementById('importFile').addEventListener('click',importFromJsonFile);
+  filterQuotes();
 });
