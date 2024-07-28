@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     { text: "Life is what happens when you're busy making other plans.", category: "Life" },
     { text: "The purpose of our lives is to be happy.", category: "Happiness" },
     { text: "Get busy living or get busy dying.", category: "Motivation" }
-  ] || JSON.parse(localStorage.getItem('quotes'));
+  ] && JSON.parse(localStorage.getItem('quotes'));
 
   // Function to save quotes to local storage
   const saveQuotes = ()=>{
@@ -44,10 +44,22 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     else if (newQuoteCategory =="" || newQuoteText =="") {
       alert('please enter a valid text and category')
-    }
+    };
   }
+      // Function to export quotes to a JSON file
+  const exportQuotes = () => {
+    const jsonString = JSON.stringify(quotes);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'quotes.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
   document.getElementById('addQuoteButton').addEventListener('click',createAddQuoteForm);
   document.getElementById('addQuoteButton').addEventListener('click',saveQuotes);
+  document.getElementById('exportQuotes').addEventListener('click',exportQuotes);
 });
