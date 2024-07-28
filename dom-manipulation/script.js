@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 const filterQuotes = ()=>{
   const populateCategories = document.getElementById('categoryFilter');
-  const categories = [...new Set(quotes.map(quote => quote.category))];
-  categories.forEach(category => {
+  const selectedCategory = [...new Set(quotes.map(quote => quote.category))];
+  selectedCategory.forEach(category => {
     const option = document.createElement('option');
     option.value=category;
     option.textContent= category;
