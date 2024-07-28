@@ -101,6 +101,24 @@ document.addEventListener('DOMContentLoaded',()=>{
     alert('Quotes synced successfully!');
     showRandomQuote();
   };
+  //posting data to the server using a mock API
+  async function postQuotesToServer() {
+    try {
+      for (const quote of quotes) {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ title: quote.text, body: quote.category })
+        });
+        const result = await response.json();
+        console.log('Quote posted to server:', result);
+      }
+    } catch (error) {
+      console.error('Error posting quotes to server:', error);
+    }
+  }
   // Function to periodically sync quotes
   const startPeriodicSync = (interval = 60000) => {
     setInterval(async () => {
