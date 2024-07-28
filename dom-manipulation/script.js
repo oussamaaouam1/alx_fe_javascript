@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     quotes.length = 0;
     quotes.push(...newQuotes);
     saveQuotes();
-    alert('Quotes synced successfully!');
+    displayNotification('Quotes synced successfully!');
     showRandomQuote();
   };
   //posting data to the server using a mock API
@@ -125,6 +125,16 @@ document.addEventListener('DOMContentLoaded',()=>{
         await syncQuotes();
     }, interval);
   };
+  // Function to display notifications
+  const displayNotification = (message) => {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerText = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+  };
 
 
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
@@ -133,4 +143,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('exportQuotes').addEventListener('click',exportQuotes);
   document.getElementById('importFile').addEventListener('click',importFromJsonFile);
   filterQuotes();
+  document.getElementById('syncQuotes').addEventListener('click', syncQuotes);
 });
