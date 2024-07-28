@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 //emplement filter by categories function
 
 const filterQuotes = ()=>{
-  const chooseCategory = document.getElementById('categoryFilter');
+  const populateCategories = document.getElementById('categoryFilter');
   const categories = [...new Set(quotes.map(quote => quote.category))];
   categories.forEach(category => {
     const option = document.createElement('option');
     option.value=category;
     option.textContent= category;
-    chooseCategory.appendChild(option);
+    populateCategories.appendChild(option);
   });
 }
 
