@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     quotes.length = 0;
     quotes.push(...newQuotes);
     saveQuotes();
-    displayNotification('Quotes synced successfully!');
+    displayNotification('Quotes synced with server!');
     showRandomQuote();
   };
   //posting data to the server using a mock API
