@@ -144,4 +144,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('importFile').addEventListener('click',importFromJsonFile);
   filterQuotes();
   document.getElementById('syncQuotes').addEventListener('click', syncQuotes);
+  postQuotesToServer()
+  startPeriodicSync();
+  
 });
